@@ -36,6 +36,9 @@ DeclareOperation( "ConstructibleProjection",
 #! @InsertChunk CharSet
 #! @InsertChunk ConstructibleProjectionOfDifferences
 
+DeclareOperation( "ConstructibleImageOfProjectiveVarietiesViaAffineStratification",
+        [ IsHomalgRingMap ] );
+
 #! @Description
 #!  Compute the image of the morphism defined by the morphism <A>phi</A> of affine rings
 #!  as a constructible subset.

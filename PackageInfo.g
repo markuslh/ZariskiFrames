@@ -13,7 +13,7 @@ Subtitle := "(Co)frames/Locales of Zariski closed/open subsets",
 Version := Maximum( [
                    "2019.08.03", ## Mohamed's version
                    ## this line prevents merge conflicts
-                   "2019.06.02", ## Markus's version
+                   "2019.09.18", ## Markus's version
                    ## this line prevents merge conflicts
                    "2019.06.05", ## Tom's version
                    ] ),

@@ -473,6 +473,54 @@ InstallMethod( ConstructibleProjection,
 end );
 
 ##
+InstallMethod( ConstructibleImageOfProjectiveVarietiesViaAffineStratification,
+        "for a homalg ring map",
+        [ IsHomalgRingMap ],
+        
+  function( phi )
+    local gamma, R, B, var, S, psi, n, strat, gammas, im;
+   
+    gamma := MatrixOfRelations( CoordinateRingOfGraph( phi ) );
+    
+    R := HomalgRing( gamma );
+
+    B := BaseRing( R );
+
+    var := Concatenation( List( RelativeIndeterminatesOfPolynomialRing( R ), String), [ "s", "t" ] );
+
+    S := CoefficientsRing( R ) * var; 
+
+    psi := RingMap( ("s"/S) * ( S * ImagesOfRingMapAsColumnMatrix( phi ) ), B, S );
+
+    gamma := MatrixOfRelations( CoordinateRingOfGraph( psi ) );
+
+    R := HomalgRing( gamma );
+
+    gamma := UnionOfRows( gamma, HomalgMatrix( "s*t-1", 1, 1, R ) );
+
+    var := RelativeIndeterminatesOfPolynomialRing( R );
+
+    n := Length( var ) - 2;
+
+    strat := function( i, j ) if j=i then return var[j] - One(R); else return var[j]; fi; end;
+
+    gammas := List( [ 1 .. n ], i -> List( [ 1 .. i ], j -> strat( i, j ) ) );
+
+    gammas := List( gammas, a -> HomalgMatrix( a, Length( a ), 1, R ) );
+
+    gammas := List( gammas, a -> UnionOfRows( a, gamma ) );
+    
+    gammas := List( gammas, ClosedSubsetOfSpecByReducedMorphism  );
+   
+    im := List( gammas, ConstructibleProjection );
+    
+    im := Sum( im );
+
+    return im;
+
+end );
+
+##
 InstallMethod( ConstructibleProjection,
         "for an object in a meet-semilattice of formal single differences",
         [ IsObjectInMeetSemilatticeOfSingleDifferences ],
